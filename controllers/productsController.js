@@ -7,7 +7,6 @@ const getAllProducts = async (_req, res, _next) => {
     const products = await productsService.getAllProducts();
     return res.status(200).json(products);
   } catch (error) {
-    console.log(error);
     return res.status(500).json({ message: ERRO });
   }
 };
@@ -21,7 +20,6 @@ const getProductById = async (req, res) => {
     }
     return res.status(200).json(product);
   } catch (error) {
-    console.error(error);
     return res.status(500).json({ message: ERRO });
   }
 };
