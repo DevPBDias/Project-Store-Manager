@@ -150,17 +150,17 @@ describe('Recebe todos os produtos por id do BD', function () {
 
     it('Verifica se o array está com dados', async function () {
       await productsController.getProductById(request, response);
-      expect(response.json.calledWith(mock[0])).to.be.equal(true);
+      expect(response.json.calledWith(mock)).to.be.equal(true);
     });
 
     it('Verifica se o objeto possue os itens: "id" e "name"', async function () {
       await productsController.getProductById(request, response);
-      expect(response.json.args[0][0]).to.all.keys("id", "name");
+      expect(response.json.args[0][0][0]).to.all.keys("id", "name");
     });
 
     it("Verifica se o produto está correto", async function () {
       await productsController.getProductById(request, response);
-      expect(response.json.args[0][0]).to.eql(mock[0]);
+      expect(response.json.args[0][0]).to.eql(mock);
     });
   });
 
@@ -184,7 +184,7 @@ describe('Recebe todos os produtos por id do BD', function () {
     })
 
     it('Verifica se a mensagem de erro  é "Algo deu errado no Controller"', async function () {
-      const ERRO = "Algo deu errado no Controller";
+      const ERRO = { message: "Algo deu errado no Controller" };
       await productsController.getAllProducts(request, response);
       expect(response.json.args[0][0]).to.eql(ERRO);
     });
@@ -210,7 +210,7 @@ describe('Recebe todos os produtos por id do BD', function () {
     });
 
     it('Verifica se a mensagem de erro é "Algo deu errado no Controller"', async function () {
-      const ERRO = "Algo deu errado no Controller";
+      const ERRO = { message: "Algo deu errado no Controller" };
       await productsController.getProductById(request, response);
       expect(response.json.args[0][0]).to.eql(ERRO);
     });

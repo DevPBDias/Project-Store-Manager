@@ -70,9 +70,9 @@ describe('Recebe todos os produtos por id do BD', () => {
       productsModel.getProductById.restore();
     });
 
-    it('Verifica se retorna um objeto', async function () {
+    it('Verifica se retorna um array', async function () {
       const result = await productsService.getProductById(1);
-      expect(result).to.be.an('object');
+      expect(result).to.be.an('array');
     });
 
     it('Verifica se o array está vazio', async function () {
@@ -93,7 +93,7 @@ describe('Recebe todos os produtos por id do BD', () => {
 
     it('Verifica se retorna um objeto', async function () {
       const result = await productsService.getProductById(1);
-      expect(result).to.be.an('object');
+      expect(result[0]).to.be.an('object');
     });
 
     it('Verifica se o array não está vazio', async function () {

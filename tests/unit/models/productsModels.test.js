@@ -23,7 +23,7 @@ describe('Recebe todos os produtos do BD', () => {
       expect(result).to.be.an('array');
     });
 
-    it('Verifica se o array está vazio', async function () {
+        it('Verifica se o array está vazio', async function () {
       const result = await productsModel.getAllProducts();
       expect(result).to.be.empty;
     });
@@ -49,6 +49,10 @@ describe('Recebe todos os produtos do BD', () => {
       const resultadoExecute = [mock, []];
       sinon.stub(connection, 'execute').resolves(resultadoExecute);
     });
+
+    after(() => {
+      sinon.restore();
+    })
 
     it('Verifica se retorna um array', async function () {
       const resultado = await productsModel.getAllProducts();
@@ -76,6 +80,7 @@ describe('Recebe todos os produtos do BD', () => {
 describe('Recebe o produto por id pelo BD', () => {
 
   describe('Quando não existe nenhum produto', () => {
+
     before(function () {
       const resultadoExecute = [[], []];
       sinon.stub(connection, 'execute').resolves(resultadoExecute);
@@ -87,12 +92,7 @@ describe('Recebe o produto por id pelo BD', () => {
 
     it('Verifica se retorna um array', async function () {
       const result = await productsModel.getProductById(1);
-      expect(result).to.be.an('array');
-    });
-
-    it('Verifica se o array está vazio', async function () {
-      const result = await productsModel.getProductById(1);
-      expect(result).to.be.empty;
+      expect(result).to.be.null;
     });
   });
 
@@ -117,9 +117,9 @@ describe('Recebe o produto por id pelo BD', () => {
       sinon.stub(connection, 'execute').resolves(resultadoExecute);
     });
 
-    it('Verifica se retorna um array', async function () {
+    it('Verifica se retorna um objeto', async function () {
       const resultado = await productsModel.getProductById(1);
-      expect(resultado).to.be.an('array');
+      expect(resultado).to.be.an('object');
     });
 
     it('Verifica se o array não está vazio', async function () {
@@ -129,13 +129,12 @@ describe('Recebe o produto por id pelo BD', () => {
 
     it('Verifica se o array possue objetos como itens do array', async function () {
       const result = await productsModel.getProductById(1);
-      expect(result[0]).to.be.an('object');
+      expect(result).to.be.an('object');
     });
 
     it('Verifica se os objetos possuem as propriedades: "id" e "name"', async function () {
       const result = await productsModel.getProductById(1);
-      const item = result[0];
-      expect(item).to.include.all.keys('id', 'name');
+      expect(result).to.include.all.keys('id', 'name');
     });
   });
 });
