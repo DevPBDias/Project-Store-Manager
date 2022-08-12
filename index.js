@@ -7,7 +7,6 @@ app.use(express.json());
 const routes = require('./routes');
 
 app.use('/products', routes.productsRoute);
-app.use('/products/:id', routes.productsRoute);
 
 // não altere esse arquivo, essa estrutura é necessária para à avaliação do projeto
 
