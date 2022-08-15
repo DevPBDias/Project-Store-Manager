@@ -112,5 +112,37 @@ describe('Recebe todos os produtos por id do BD', () => {
       expect(result[0]).to.all.keys('id', 'name');
     });
   });
+
+  describe('Cadastro de novos produtos do BD', () => {
+
+    describe('Quando existe um novo produto', () => {
+      before(function () {
+        const mock = {
+          "id": 4,
+          "name": "ProdutoX"
+        };
+        sinon.stub(productsModel, 'addProduct').resolves(mock);
+      });
+
+      after(function () {
+        productsModel.addProduct.restore();
+      });
+
+      it('Verifica se retorna um objeto', async function () {
+        const result = await productsService.addProduct("ProdutoX");
+        expect(result).to.be.an('object');
+      });
+
+      it('Verifica se o objeto não está vazio', async function () {
+        const result = await productsService.addProduct("ProdutoX");
+        expect(result).to.be.not.empty;
+      });
+
+      it('Verifica se os objetos possuem as propriedades: "id" e "name"', async function () {
+        const result = await productsService.addProduct("ProdutoX");
+        expect(result).to.include.all.keys('id', 'name');
+      });
+    });
+  });
 });
 
