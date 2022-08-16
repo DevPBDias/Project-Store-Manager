@@ -10,6 +10,16 @@ const addSales = async (sale) => {
   return result;
 };
 
+const getAllSales = async () => salesModel.getAllSales();
+
+const getSalesById = async (id) => {
+  const result = await salesModel.getSalesById(id);
+  if (!result.length) return null;
+  return result;
+};
+
 module.exports = {
   addSales,
+  getAllSales,
+  getSalesById,
 };
