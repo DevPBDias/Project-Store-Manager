@@ -171,39 +171,4 @@ describe('Recebe o produto por id pelo BD', () => {
       });
     });
   });
-
-  describe('Altera produtos do BD', () => {
-
-    describe('Quando altera um produto', () => {
-      const mock = {
-        id: 1,
-        name: "Martelo do Batman"
-      };
-
-      before(function () {
-        const resultadoExecute = [[mock], []];
-        sinon.stub(connection, 'execute').resolves(resultadoExecute);
-      });
-
-      after(function () {
-        connection.execute.restore();
-      });
-
-      it('Verifica se retorna um objeto', async function () {
-        const result = await productsModel.updateProduct(mock);
-        expect(result[0]).to.be.an('object');
-      });
-
-      it('Verifica se o objeto não está vazio', async function () {
-        const result = await productsModel.updateProduct(mock);
-        expect(result).to.be.not.empty;
-      });
-
-      it('Verifica se os objetos possuem as propriedades: "id" e "name"', async function () {
-        const result = await productsModel.updateProduct(mock);
-        expect(result[0]).to.include.all.keys('id', 'name');
-      });
-    });
-  });
-  
 });

@@ -144,45 +144,5 @@ describe('Recebe todos os produtos por id do BD', () => {
       });
     });
   });
-
-  describe('Altera produtos do BD', () => {
-
-    describe('Quando altera um produto', () => {
-      const changeMock = {
-        "id": "1",
-        "name": "Martelo do Batman"
-      };
-      const mock = [
-        { id: 1, name: 'Martelo de Thor' },
-        { id: 2, name: 'Traje de encolhimento' },
-        { id: 3, name: 'Escudo do Capitão América' },
-      ];
-
-      before(function () {
-        sinon.stub(productsModel, 'getAllProducts').resolves(mock[0]);
-        sinon.stub(productsModel, 'updateProduct').resolves(changeMock);
-      });
-
-      after(function () {
-        productsModel.getAllProducts.restore();
-        productsModel.updateProduct.restore();
-      });
-
-      it('Verifica se retorna um objeto', async function () {
-        const result = await productsService.updateProduct(changeMock);
-        expect(result).to.be.an('object');
-      });
-
-      it('Verifica se o objeto não está vazio', async function () {
-        const result = await productsService.updateProduct(changeMock);
-        expect(result).to.be.not.empty;
-      });
-
-      it('Verifica se os objetos possuem as propriedades: "id" e "name"', async function () {
-        const result = await productsService.updateProduct(changeMock);
-        expect(result).to.include.all.keys('id', 'name');
-      });
-    });
-  });
 });
 
